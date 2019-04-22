@@ -1,5 +1,10 @@
 package com.itschool;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.util.ArrayList;
+
 public class Main {
     //Переменая, которой оперирует инкременатор
     public static int mValue = 0;
@@ -26,6 +31,51 @@ public class Main {
         }
 
         mInc.finish();	//Инициация завершения побочного потока
+
+        // Еще пример работы с потоками, но используя доступ к сети
+
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    Document document = Jsoup.connect("http://study.cc.ua").timeout(30000).get();
+                    String text = document.text();
+                    System.out.println(text);
+                } catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    ArrayList<Integer> list = new ArrayList<>();
+                    for (int i = 0; i < 100000; i++)
+                    {
+                        list.add(i);
+                    }
+
+                    for (Integer i : list)
+                    {
+                        System.out.println(i);
+                    }
+                } catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+
+        System.out.println("Information written");
     }
 
 }
