@@ -1,6 +1,6 @@
 package com.itschool;
 
-public class BanditSlot extends Thread {
+public class BanditSlot extends Thread implements Runnable {
     Slot slot;
 
     @Override
@@ -10,6 +10,5 @@ public class BanditSlot extends Thread {
         }*/
         int choice = (int) (Math.random() * 5);
         slot = Slot.values()[choice];
-        this.interrupt();
     }
 }

@@ -80,9 +80,8 @@ public class Main {
         }).start();
 
         System.out.println("Information written");
-
         System.out.println("\nStates:");
-        System.out.println(banditGame.slot1.isInterrupted());
+        System.out.println(banditGame.slot1.getState());
         System.out.println(banditGame.slot2.getState());
         System.out.println(banditGame.slot3.getState());
     }

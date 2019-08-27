@@ -11,17 +11,27 @@ public class BanditGame {
         slot3 = new BanditSlot();
     }
 
-    public String Play() {
-        slot1.run();
-        slot2.run();
-        slot3.run();
+    public String Play() throws InterruptedException {
+        slot1.start();
+        slot2.start();
+        slot3.start();
         do {
-//            System.out.println("\nStates:");
-//            System.out.println(slot1.getState());
-//            System.out.println(slot2.getState());
-//            System.out.println(slot3.getState());
-        } while (slot1.getState() != Thread.State.NEW && slot2.getState() != Thread.State.NEW && slot3.getState() != Thread.State.NEW);
+            System.out.println("\nStates:");
+            System.out.println(slot1.getState());
+            System.out.println(slot2.getState());
+            System.out.println(slot3.getState());
+        } while (slot1.getState() != Thread.State.TERMINATED && slot2.getState() != Thread.State.TERMINATED && slot3.getState() != Thread.State.TERMINATED);
 
         return slot1.slot + "\t" + slot2.slot + "\t" + slot3.slot;
+
+
+    }
+}
+
+class threadState implements Runnable {
+    public void run() {
+        String state = Thread.currentThread().getState().toString();
+        String name = Thread.currentThread().getName();
+        System.out.println(name + " is in " + state + " state");
     }
 }
