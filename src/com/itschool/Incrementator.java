@@ -29,10 +29,10 @@ class Incremenator extends Thread
 
                 //Вывод текущего значения переменной
                 System.out.print(Main.mValue + " ");
+            } else {
+                System.out.println("Finished");
+                return;        //Завершение потока
             }
-            else
-                return;		//Завершение потока
-
             try{
                 Thread.sleep(100); //Приостановка потока на 1 сек.
             }catch(InterruptedException e){}

@@ -10,7 +10,6 @@ class EggVoice extends Thread
             try{
                 sleep(1000);	//Приостанавливает поток на 1 сек
             }catch(InterruptedException e){}
-
             System.out.println("яйцо!");
         }
         //Слово «яйцо» сказано 5 раз

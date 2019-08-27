@@ -11,8 +11,12 @@ public class Main {
 
     static Incremenator mInc;	//Объект побочного потока
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws InterruptedException {
+
+        BanditGame banditGame = new BanditGame();
+        System.out.println(banditGame.Play());
+
+
         mInc = new Incremenator();	//Создание потока
 
         System.out.print("Значение = ");
@@ -30,26 +34,26 @@ public class Main {
             mInc.changeAction();	//Переключение действия
         }
 
-        mInc.finish();	//Инициация завершения побочного потока
+
 
         // Еще пример работы с потоками, но используя доступ к сети
 
-        new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    Document document = Jsoup.connect("http://study.cc.ua").timeout(30000).get();
-                    String text = document.text();
-                    System.out.println(text);
-                } catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                }
-            }
-        }).start();
+        new Thread
+                (
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Document document = Jsoup.connect("http://study.cc.ua").timeout(10000).get();
+                                    String text = document.text();
+                                    System.out.println(text);
+                                    mInc.finish();    //Инициация завершения побочного потока
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }
+                ).start();
 
         new Thread(new Runnable()
         {
@@ -66,7 +70,7 @@ public class Main {
 
                     for (Integer i : list)
                     {
-                        System.out.println(i);
+                        // System.out.println(i);
                     }
                 } catch (Exception ex)
                 {
@@ -76,6 +80,10 @@ public class Main {
         }).start();
 
         System.out.println("Information written");
-    }
 
+        System.out.println("\nStates:");
+        System.out.println(banditGame.slot1.isInterrupted());
+        System.out.println(banditGame.slot2.getState());
+        System.out.println(banditGame.slot3.getState());
+    }
 }

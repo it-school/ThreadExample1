@@ -2,19 +2,21 @@ package com.itschool;
 public class ChickenVoice	//Класс с методом main()
 {
     static EggVoice mAnotherOpinion;	//Побочный поток
+    static Dinosaur dinoOpinion;    //Побочный поток
 
     public static void main(String[] args)
     {
         mAnotherOpinion = new EggVoice();	//Создание потока
+        dinoOpinion = new Dinosaur();    //Создание потока
         System.out.println("Спор начат...");
         mAnotherOpinion.start(); 			//Запуск потока
+        dinoOpinion.start();
 
         for(int i = 0; i < 5; i++)
         {
             try{
                 Thread.sleep(1000);	//Приостанавливает поток на 1 секунду
             }catch(InterruptedException e){}
-
             System.out.println("курица!");
         }
 
