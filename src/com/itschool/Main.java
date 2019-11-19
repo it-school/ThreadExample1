@@ -1,18 +1,64 @@
 package com.itschool;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.util.ArrayList;
-
 public class Main {
     //Переменая, которой оперирует инкременатор
     public static int mValue = 0;
-
-    static Incremenator mInc;	//Объект побочного потока
+    public static boolean isFinished = false;
+    static double sum1 = 0;
+    static double sum2 = 0;
+    static Incremenator mInc;    //Объект побочного потока
+    static boolean isFinished1 = false, isFinished2 = false;
 
     public static void main(String[] args) throws InterruptedException {
+   /*
+        final int N = 50000000;
 
+        int[] array = new int[N];
+
+        long start = System.currentTimeMillis();
+        new Thread
+                (
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    for (int i = 0; i < N / 2; i++) {
+                                        array[i] = (int) (Math.random() * 10);
+                                    }
+                                    isFinished1 = true;
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }
+                ).start();
+
+        new Thread
+                (
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    for (int i = N / 2; i < N; i++) {
+                                        array[i] = (int) (Math.random() * 10);
+                                    }
+                                    isFinished2 = true;
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }
+                ).start();
+
+        long stop = System.currentTimeMillis();
+
+        do {
+            Thread.sleep(100);
+        } while (!isFinished1 && !isFinished2);
+
+        System.out.println(stop - start);
+*/
+/*
         BanditGame banditGame = new BanditGame();
         System.out.println(banditGame.Play());
 
@@ -34,10 +80,7 @@ public class Main {
             mInc.changeAction();	//Переключение действия
         }
 
-
-
         // Еще пример работы с потоками, но используя доступ к сети
-
         new Thread
                 (
                         new Runnable() {
@@ -66,11 +109,8 @@ public class Main {
                     for (int i = 0; i < 100000; i++)
                     {
                         list.add(i);
-                    }
-
-                    for (Integer i : list)
-                    {
-                        // System.out.println(i);
+                        if (i % 1000  == 0)
+                            System.out.println(list.get(i));
                     }
                 } catch (Exception ex)
                 {
@@ -84,5 +124,76 @@ public class Main {
         System.out.println(banditGame.slot1.getState());
         System.out.println(banditGame.slot2.getState());
         System.out.println(banditGame.slot3.getState());
+        */
+
+        long start = System.currentTimeMillis();
+
+        Cube cube1 = new Cube();
+        cube1.start();
+
+        while (cube1.isAlive()) {
+            Thread.sleep(10);
+        }
+
+
+        Dice dice = new Dice(6);
+        System.out.println(dice);
+        dice.throwDice();
+        System.out.println(dice);
+        dice.throwDice();
+        System.out.println(dice);
+        dice.throwDice();
+        System.out.println(dice);
+
+        final int N = 200000000;
+        double[] array = new double[N];
+        for (int i = 0; i < N; i++) {
+            array[i] = Math.random() * 10;
+        }
+        System.out.println("Array is filled!");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < array.length / 2; i++) {
+                        sum1 += array[i];
+                        if (i % (array.length / 100) == 0)
+                            System.out.println(i / (array.length / 100) + "%");
+                    }
+                    isFinished1 = true;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+        System.out.println("1 half");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = array.length / 2; i < array.length; i++) {
+                        sum2 += array[i];
+                        if (i % (array.length / 100) == 0)
+                            System.out.println(i / (array.length / 100) + "%");
+                    }
+                    isFinished2 = true;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+        System.out.println("2 half");
+
+
+        do {
+            Thread.sleep(1);
+        }
+        while (!isFinished1 && !isFinished2);
+        System.out.println("Sum = " + (sum1 + sum2));
+
+
+        long finish = System.currentTimeMillis();
+
+        System.out.println(finish - start);
     }
 }
