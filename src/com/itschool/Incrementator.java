@@ -1,15 +1,16 @@
 package com.itschool;
 
-class Incremenator extends Thread
+class Incrementator extends Thread
 {
-    //О ключевом слове volatile - чуть ниже
+    // О ключевом слове volatile - чуть ниже
     private volatile boolean mIsIncrement = true;
     private volatile boolean mFinish = false;
 
-    public void changeAction()	//Меняет действие на противоположное
+    public void changeAction()   //Меняет действие на противоположное
     {
         mIsIncrement = !mIsIncrement;
     }
+
     public void finish()		//Инициирует завершение потока
     {
         mFinish = true;
@@ -28,7 +29,7 @@ class Incremenator extends Thread
                     Main.mValue--;	//Декремент
 
                 //Вывод текущего значения переменной
-                System.out.print(Main.mValue + " ");
+                System.out.println(Main.mValue * 100 + "ms ");
             } else {
                 System.out.println("Finished");
                 return;        //Завершение потока

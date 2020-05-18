@@ -1,4 +1,4 @@
-package com.itschool;
+package com.itschool.EX;
 
 public enum Slot {
     five,

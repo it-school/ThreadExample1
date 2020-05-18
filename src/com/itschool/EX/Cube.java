@@ -1,4 +1,4 @@
-package com.itschool;
+package com.itschool.EX;
 
 public class Cube extends Thread {
     private int number;

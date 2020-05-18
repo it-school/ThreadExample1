@@ -1,4 +1,4 @@
-package com.itschool;
+package com.itschool.EX;
 
 public class Dice {
     Cube[] dice;
