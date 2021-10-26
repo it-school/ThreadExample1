@@ -8,6 +8,7 @@ public class ChickenVoice	//Класс с методом main()
     {
         mAnotherOpinion = new EggVoice();	//Создание потока
         dinoOpinion = new Dinosaur();    //Создание потока
+
         System.out.println("Спор начат...");
         mAnotherOpinion.start(); 			//Запуск потока
         dinoOpinion.start();
@@ -24,8 +25,9 @@ public class ChickenVoice	//Класс с методом main()
 
         if(mAnotherOpinion.isAlive())	//Если оппонент ещё не сказал последнее слово
         {
-            try{
-                mAnotherOpinion.join();	//Подождать пока оппонент закончит высказываться.
+            try {
+                mAnotherOpinion.join();   //Подождать пока оппонент закончит высказываться.
+                dinoOpinion.join();   //Подождать пока оппонент закончит высказываться.
             }catch(InterruptedException e){}
 
             System.out.println("Первым появилось яйцо!");

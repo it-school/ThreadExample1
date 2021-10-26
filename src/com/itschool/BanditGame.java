@@ -11,20 +11,28 @@ public class BanditGame {
         slot3 = new BanditSlot();
     }
 
-    public String Play() throws InterruptedException {
-        slot1.start();
-        slot2.start();
-        slot3.start();
+    public String Play(int time) throws InterruptedException {
+        if (!slot1.isAlive() && !slot2.isAlive() && !slot3.isAlive()) {
+            slot1.start();
+            slot2.start();
+            slot3.start();
+
+            slot1.join();
+            slot2.join();
+            slot3.join();
+        }
+/*
         do {
-            System.out.println("\nStates:");
-            System.out.println(slot1.getState());
-            System.out.println(slot2.getState());
-            System.out.println(slot3.getState());
+            Thread.sleep(1);
         } while (slot1.getState() != Thread.State.TERMINATED && slot2.getState() != Thread.State.TERMINATED && slot3.getState() != Thread.State.TERMINATED);
+ */
+/*        System.out.println("\nStates:");
+        System.out.println(slot1.getState());
+        System.out.println(slot2.getState());
+        System.out.println(slot3.getState());*/
+
 
         return slot1.slot + "\t" + slot2.slot + "\t" + slot3.slot;
-
-
     }
 }
 
