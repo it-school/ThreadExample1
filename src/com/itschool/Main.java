@@ -1,10 +1,5 @@
 package com.itschool;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.util.ArrayList;
-
 public class Main {
    //Переменная, которой оперирует инкрементатор
    public static int mValue = 0;
@@ -15,11 +10,10 @@ public class Main {
    static boolean isFinished1 = false, isFinished2 = false;
 
    public static void main(String[] args) throws InterruptedException {
-/*
-      final int N = 50000000;
+      /*
+      final int N = 500000000;
 
       int[] array = new int[N];
-
       long start = System.currentTimeMillis();
 
       new Thread
@@ -65,12 +59,15 @@ public class Main {
 
       stop = System.currentTimeMillis();
       System.out.println(stop - start);
-      */
+
+*/
+
 /*
       BanditGame banditGame = new BanditGame();
       System.out.println(banditGame.Play(10));
 */
 
+/*
       mInc = new Incremenator();   //Создание потока
 
       System.out.print("Значение = ");
@@ -122,6 +119,7 @@ public class Main {
          }
       }).start();
 
+*/
 /*
         System.out.println("Information written");
         System.out.println("\nStates:");

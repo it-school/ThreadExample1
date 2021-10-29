@@ -12,7 +12,8 @@ public class BanditSlot extends Thread implements Runnable {
         int time = 0;
         do {
             slot = Slot.values()[(int) (Math.random() * Slot.values().length)];
-            System.out.println(time);
+            //System.out.println(time);
+            System.out.println(this.getState());
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
