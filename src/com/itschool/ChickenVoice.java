@@ -1,43 +1,44 @@
 package com.itschool;
-public class ChickenVoice	//Класс с методом main()
+
+public class ChickenVoice   //Класс с методом main()
 {
-    static EggVoice mAnotherOpinion;	//Побочный поток
-    static Dinosaur dinoOpinion;    //Побочный поток
+   static EggVoice eggOpinion;   //Побочный поток
+   static Dinosaur dinoOpinion;    //Побочный поток
 
-    public static void main(String[] args)
-    {
-        mAnotherOpinion = new EggVoice();	//Создание потока
-        dinoOpinion = new Dinosaur();    //Создание потока
-//        dinoOpinion.setPriority(Thread.MAX_PRIORITY);
+   public static void main(String[] args) {
+      eggOpinion = new EggVoice();   //Создание потока
+      dinoOpinion = new Dinosaur();    //Создание потока
 
-        System.out.println("Спор начат...");
-        mAnotherOpinion.start();         //Запуск потока
-        dinoOpinion.start();              //Запуск потока
+      eggOpinion.setPriority(Thread.MAX_PRIORITY);
 
-        for(int i = 0; i < 5; i++)
-        {
-            try{
-                Thread.sleep(1000);	//Приостанавливает поток на 1 секунду
-            }catch(InterruptedException e){}
-            System.out.println("курица!");
-        }
+      System.out.println("Спор начат...");
+      eggOpinion.start();         //Запуск потока
+      dinoOpinion.start();              //Запуск потока
 
-        //Слово «курица» сказано 5 раз
+      for (int i = 0; i < 5; i++) {
+         try {
+            Thread.sleep(1000);   //Приостанавливает поток на 1 секунду
+         } catch (InterruptedException e) {
+         }
+         System.out.println("курица!");
+      }
 
-        if (mAnotherOpinion.isAlive() && dinoOpinion.isAlive())   //Если оппонент ещё не сказал последнее слово
-        {
-            try {
-                mAnotherOpinion.join();   //Подождать пока оппонент закончит высказываться.
-                dinoOpinion.join();   //Подождать пока оппонент закончит высказываться.
-            } catch (InterruptedException e) {
-            }
+      //Слово «курица» сказано 5 раз
 
-            System.out.println("Первым появилось яйцо!");
-        } else   //если оппонент уже закончил высказываться
-        {
-            System.out.println("Первой появилась курица!");
-        }
-        System.out.println("Спор закончен!");
-    }
+      if (eggOpinion.isAlive() && dinoOpinion.isAlive())   //Если оппонент ещё не сказал последнее слово
+      {
+         try {
+            eggOpinion.join();   //Подождать пока оппонент закончит высказываться.
+            dinoOpinion.join();   //Подождать пока оппонент закончит высказываться.
+         } catch (InterruptedException e) {
+         }
+
+         System.out.println("Первым появилось яйцо!");
+      } else   //если оппонент уже закончил высказываться
+      {
+         System.out.println("Первой появилась курица!");
+      }
+      System.out.println("Спор закончен!");
+   }
 }
 

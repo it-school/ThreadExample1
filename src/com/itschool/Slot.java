@@ -6,5 +6,6 @@ public enum Slot {
     zero,
     cherry,
     watermelon,
-    lemon
+    lemon,
+    bar
 }

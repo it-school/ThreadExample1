@@ -6,15 +6,17 @@ public class BanditGame {
     BanditSlot slot3;
 
     public BanditGame() {
-        slot1 = new BanditSlot();
-        slot2 = new BanditSlot();
-        slot3 = new BanditSlot();
+
     }
 
     public String Play(int time) throws InterruptedException {
-        System.out.println(slot1.getState());
+        slot1 = new BanditSlot();
+        slot2 = new BanditSlot();
+        slot3 = new BanditSlot();
+
+/*        System.out.println(slot1.getState());
         System.out.println(slot2.getState());
-        System.out.println(slot3.getState());
+        System.out.println(slot3.getState());*/
         if (!slot1.isAlive() && !slot2.isAlive() && !slot3.isAlive()) {
             slot1.start();
             slot2.start();
@@ -29,13 +31,30 @@ public class BanditGame {
             Thread.sleep(1);
         } while (slot1.getState() != Thread.State.TERMINATED && slot2.getState() != Thread.State.TERMINATED && slot3.getState() != Thread.State.TERMINATED);
  */
+/*
         System.out.println("\nStates:");
         System.out.println(slot1.getState());
         System.out.println(slot2.getState());
         System.out.println(slot3.getState());
+*/
+        String result = "0";
+        if (slot1.slot == slot2.slot && slot1.slot == slot3.slot && slot1.slot == Slot.bar)
+            result = "10000";
+        else if (slot1.slot == slot2.slot && slot1.slot == slot3.slot && slot1.slot == Slot.cherry)
+            result = "1000";
+        else if (slot1.slot == slot2.slot && slot1.slot == slot3.slot && slot1.slot == Slot.five)
+            result = "500";
+        else if (slot1.slot == slot2.slot && slot1.slot == slot3.slot && slot1.slot == Slot.seven)
+            result = "300";
+        else if (slot1.slot == slot2.slot && slot1.slot == slot3.slot && slot1.slot == Slot.lemon)
+            result = "100";
+        else if (slot1.slot == slot2.slot && slot1.slot == slot3.slot && slot1.slot == Slot.watermelon)
+            result = "50";
+        else if (slot1.slot == slot2.slot && slot1.slot == slot3.slot && slot1.slot == Slot.zero)
+            result = "10";
 
 
-        return slot1.slot + "\t" + slot2.slot + "\t" + slot3.slot;
+        return slot1.slot + "\t" + slot2.slot + "\t" + slot3.slot + " -> " + result;
     }
 
     // todo check if win
